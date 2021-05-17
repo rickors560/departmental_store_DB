@@ -251,6 +251,16 @@ ORDER BY ct.category_id;
 
 
 
+-- Categories listed in descending with highest number of products
+SELECT ct.category_id, ct.category_name, ct.category_short_code, COUNT(pr.product_id) AS number_of_products FROM categories ct
+JOIN products pr ON pr.category_id = ct.category_id
+WHERE pr.product_id IN (SELECT product_id FROM products WHERE category_id = ct.category_id)
+GROUP BY ct.category_id, ct.category_name
+ORDER BY number_of_products DESC;
+
+
+
+
 -- Query Suppliers
 SELECT * FROM suppliers WHERE supplier_name = 'Amazon';
 
